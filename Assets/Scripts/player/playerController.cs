@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +21,10 @@ public class playerController : MonoBehaviour
 	private float climbingSpeed = 8f;
 	private float jumpingPower = 35f;
 	private int deathCounter = 0;
+	private bool onSpike;
+
+	// Variables
+	float spikeTimer = 1.5f;
 
 	// Player Status
 	private bool isFacingLeft;
@@ -56,8 +61,20 @@ public class playerController : MonoBehaviour
 			// Checks if it needs to flip the player
 			Flip();
 
-			// Checks if player is grounded
+			// If player is on spike deal damage every 1.5 seconds
+			if (onSpike)
+			{
+				float spikeTime = 1.0f;
+				spikeTimer += Time.deltaTime;
+				if (spikeTimer > spikeTime)
+				{
+					PlayerDamager(20);
+					spikeTimer = 0;
+				} 
 
+			}
+
+			// Checks if player is grounded
 			// *** Jump ***
 			if (Input.GetButtonDown("Jump") && IsGrounded() || Input.GetButtonDown("Jump") && isVines)
 			{
@@ -76,10 +93,6 @@ public class playerController : MonoBehaviour
 			anim.SetBool("isFacingLeft", isFacingLeft);
 			anim.SetBool("isWalking", isWalking);
 			anim.SetBool("isJumping", !IsGrounded());
-		}
-		else
-		{
-			Instantiate(deathMenu);
 		}
 
 		// ** Test Damage + Heal **
@@ -144,6 +157,10 @@ public class playerController : MonoBehaviour
 		{
 			PlayerDamager(200);
 		}
+		if (collision.CompareTag("Spike"))
+		{
+			onSpike = true;
+		}
 	}
 
 	// If it leaves the Vines make isVines false
@@ -152,6 +169,10 @@ public class playerController : MonoBehaviour
 		if (collision.CompareTag("Vines"))
 		{
 			isVines = false;
+		}
+		if (collision.CompareTag("Spike"))
+		{
+			onSpike = false;
 		}
 	}
 

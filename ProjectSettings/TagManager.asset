@@ -9,6 +9,7 @@ TagManager:
   - Vines
   - Tilemap
   - World Colliders
+  - Spike
   layers:
   - Default
   - TransparentFX

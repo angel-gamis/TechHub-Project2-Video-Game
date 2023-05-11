@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d27a6001345974ab9a61e92f6eb5a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 249831407729805182}
   abilityBullet: {fileID: 1090408969612913401, guid: 8875efe69a784c24f8037186898015ac, type: 3}
   abilityBulletTrans: {fileID: 249831407378684855}
   bulletTrans: {fileID: 249831407378684856}
@@ -5026,6 +5027,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9817e2792d47a7a4d9f87c250a6b3152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  deathMenu: {fileID: 4253171166891299792, guid: b06f65acaee27914c982924f41349a68, type: 3}
+  playerStatus: 1
   groundCheck: {fileID: 249831406936362530}
   groundLayer:
     serializedVersion: 2

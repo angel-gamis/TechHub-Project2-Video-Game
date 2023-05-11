@@ -17,6 +17,7 @@ public class deathScreen : MonoBehaviour
 	private void ReloadScene()
 	{
 		scenesManager.Instance.ReloadScene();
+		Destroy(gameObject);
 	}
 
 	private void StartMenu()

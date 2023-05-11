@@ -19,7 +19,17 @@ ScriptedImporter:
   _createBackgroundColor: 1
   _createLevelBoundsTrigger: 0
   _intGridValues: []
-  _entities: []
+  _entities:
+  - _key: Mob
+    _asset: {instanceID: 0}
+  - _key: Spike
+    _asset: {instanceID: 0}
+  - _key: Push
+    _asset: {instanceID: 0}
+  - _key: Key
+    _asset: {instanceID: 0}
+  - _key: Fire
+    _asset: {instanceID: 0}
   _enumGenerate: 0
   _enumPath: 
   _enumNamespace: 

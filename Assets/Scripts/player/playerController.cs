@@ -194,7 +194,7 @@ public class playerController : MonoBehaviour
 		rigid.gravityScale = 0;
 		if(deathCounter <= 0)
 		{
-			Instantiate(deathMenu, new Vector3(0, 0, 0), Quaternion.identity);
+			GameObject deathPopUp = Instantiate(deathMenu, new Vector3(0, 0, 0), Quaternion.identity);
 		}
 		deathCounter++;
 

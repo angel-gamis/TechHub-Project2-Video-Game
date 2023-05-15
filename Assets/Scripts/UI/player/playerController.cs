@@ -12,8 +12,8 @@ public class playerController : MonoBehaviour
 	[SerializeField] GameObject deathMenu;
 
 	// Player Inputs
-	private float x;
-	private float horizontal;
+	private float xMove;
+	private float yMove;
 
 	// Player Variables
 	public bool playerStatus = true;
@@ -54,9 +54,9 @@ public class playerController : MonoBehaviour
 		if (playerStatus)
 		{
 			// Checks input direction
-			x = Input.GetAxisRaw("Horizontal");
+			xMove = Input.GetAxisRaw("Horizontal");
 			// Checks 
-			horizontal = Input.GetAxis("Vertical");
+			yMove = Input.GetAxis("Vertical");
 
 			// Checks if it needs to flip the player
 			Flip();
@@ -116,8 +116,8 @@ public class playerController : MonoBehaviour
 		{
 			// *** Walking ***
 			// Checking if the player is walking currently
-			rigid.velocity = new Vector2(x * speed, rigid.velocity.y);
-			if (x < 0 || x > 0)
+			rigid.velocity = new Vector2(xMove * speed, rigid.velocity.y);
+			if (xMove < 0 || xMove > 0)
 			{
 				isWalking = true;
 			}
@@ -131,7 +131,7 @@ public class playerController : MonoBehaviour
 			if (isVines)
 			{
 				rigid.gravityScale = 0;
-				rigid.velocity = new Vector2(rigid.velocity.x, horizontal * climbingSpeed);
+				rigid.velocity = new Vector2(rigid.velocity.x, yMove * climbingSpeed);
 			}
 			else
 			{
@@ -179,7 +179,7 @@ public class playerController : MonoBehaviour
 	// Flips player on input control
 	private void Flip()
 	{
-		if (isFacingLeft && x > 0f || !isFacingLeft && x < 0f)
+		if (isFacingLeft && xMove > 0f || !isFacingLeft && xMove < 0f)
 		{
 			isFacingLeft = !isFacingLeft;
 			Vector3 localScale = transform.localScale;

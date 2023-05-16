@@ -5034,6 +5034,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  flashMaterial: {fileID: 2100000, guid: 45f3c58dd79115f43a5936fd1afe58e5, type: 2}
 --- !u!95 &249831407729805153
 Animator:
   serializedVersion: 5

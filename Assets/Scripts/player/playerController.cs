@@ -80,7 +80,7 @@ public class playerController : MonoBehaviour
 				spikeTimer += Time.deltaTime;
 				if (spikeTimer > spikeTime)
 				{
-					PlayerDamager(20);
+					GameManager.gameManager.PlayerDamager(20);
 					spikeTimer = 0;
 				} 
 
@@ -249,8 +249,8 @@ public class playerController : MonoBehaviour
 	// Damage Player
 	private void PlayerDamager(int dmg)
 	{
-		GameManager.gameManager.playerHealth.DamageEntity(dmg);
-		Flash();
+		GameManager.gameManager.PlayerDamager(dmg);
+		//Flash();
 		healthBar.SetHealth(GameManager.gameManager.playerHealth.Health);
 	}
 

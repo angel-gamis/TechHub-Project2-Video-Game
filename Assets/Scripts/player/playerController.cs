@@ -33,26 +33,14 @@ public class playerController : MonoBehaviour
 	private bool isVines = false;
 
 	private Rigidbody2D rigid;
-	private SpriteRenderer rend;
-	private Material originalMaterial;
 	[SerializeField] private Transform groundCheck;
 	[SerializeField] private LayerMask groundLayer;
-
-	// Flash
-
-	private float flashDuration = 0.125f;
-	// White flash material
-	[SerializeField] private Material flashMaterial;
-	// Currently running flash coroutine
-	private Coroutine flashRoutine;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		rend = gameObject.GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
 		rigid = gameObject.GetComponent<Rigidbody2D>();
-		originalMaterial = rend.material;
 	}
 
 	// Input direction, jumping, and animations
@@ -200,33 +188,6 @@ public class playerController : MonoBehaviour
 		}
 	}
 
-	private IEnumerator FlashRoutine()
-	{
-		// Change material to flashing
-		rend.material = flashMaterial;
-
-		// Pause for "flashDuration" amount of seconds
-		yield return new WaitForSeconds(flashDuration);
-
-		// After change back to original material
-		rend.material = originalMaterial;
-
-		// Signify that the routine is finished
-		flashRoutine = null;
-	}
-	
-	private void Flash()
-	{
-		if(flashRoutine != null)
-		{
-			// Stop the routine
-			StopCoroutine(flashRoutine);
-		}
-
-		// Start routine, and find the reference for it
-		flashRoutine = StartCoroutine(FlashRoutine());
-	}
-
 	private void Death()
 	{
 		playerStatus = false;
@@ -246,20 +207,13 @@ public class playerController : MonoBehaviour
 		return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 	}
 	
-	// Damage Player
 	private void PlayerDamager(int dmg)
 	{
 		GameManager.gameManager.PlayerDamager(dmg);
-		//Flash();
-		healthBar.SetHealth(GameManager.gameManager.playerHealth.Health);
 	}
 
-	// Heal Player
 	private void PlayerHeal(int heal)
 	{
-		// Use parameter heal to change the game manager player health variable
-		GameManager.gameManager.playerHealth.HealEntity(heal);
-		// Change the slider using the health bar scripts method set health
-		healthBar.SetHealth(GameManager.gameManager.playerHealth.Health);
+		GameManager.gameManager.PlayerHeal(heal);
 	}
 }

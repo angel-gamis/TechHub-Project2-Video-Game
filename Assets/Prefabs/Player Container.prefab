@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 249831406220937183}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Player Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249831406936362533}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.86731124, z: 0}
+  m_LocalPosition: {x: 0, y: -1.05, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5034,7 +5034,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  flashMaterial: {fileID: 2100000, guid: 45f3c58dd79115f43a5936fd1afe58e5, type: 2}
 --- !u!95 &249831407729805153
 Animator:
   serializedVersion: 5
@@ -5089,6 +5088,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.07440162, y: -0.0047438904}
-  m_Size: {x: 0.95658827, y: 1.5920292}
+  m_Offset: {x: -0.049888134, y: -0.10322106}
+  m_Size: {x: 0.9075613, y: 1.7889836}
   m_Direction: 0

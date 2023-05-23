@@ -2,19 +2,36 @@ using UnityEngine;
 
 public class skeletonController : MonoBehaviour
 {
+	[Header("** Skeleton Animator")]
 	private Animator anim;
+
+	[Header ("** Skeleton Attack Variables")]
 	[SerializeField] private float attackCooldown;
 	[SerializeField] private float range;
 	[SerializeField] private float colliderDistance;
 	[SerializeField] private int damage;
 	[SerializeField] private BoxCollider2D boxCollider;
-	[SerializeField] healthBar playerHealthBar;
-	[SerializeField] private LayerMask playerLayer;
+	private float attackCooldownTimer = Mathf.Infinity;
 
+	[Header("** Skeleton Status Variables")]
 	// Skeleton Status Variables
 	private bool isWalking;
-	
-	private float attackCooldownTimer = Mathf.Infinity;
+	public bool isAttacking;
+
+	[Header("Movement Variables")]
+	private bool movingRight = true;
+	[SerializeField] private float speed = .12f;
+	private Vector2 movingRightScale = new Vector2(10, 10);
+	private Vector2 movingLeftScale = new Vector2(-10, 10);
+
+	[Header("Patrol Waypoints")]
+	[SerializeField] private Transform leftEdge;
+	[SerializeField] private Transform rightEdge;
+
+	[Header("** Outside Variables")]
+	[SerializeField] enemyPatrol enemyPatrol;
+	[SerializeField] healthBar playerHealthBar;
+	[SerializeField] private LayerMask playerLayer;
 
 	private void Awake()
 	{
@@ -23,6 +40,8 @@ public class skeletonController : MonoBehaviour
 
 	private void Update()
 	{
+		isAttacking = false;
+
 		// Update Timer
 		attackCooldownTimer += Time.deltaTime;
 
@@ -32,6 +51,8 @@ public class skeletonController : MonoBehaviour
 			// Attack if cooldown is finished
 			if (attackCooldownTimer > attackCooldown)
 			{
+				transform.position = new Vector2(transform.position.x, transform.position.y);
+				isAttacking = true;
 				// Attack Animation
 				anim.SetTrigger("attack_1");
 				// Delay Damage to hit a little bit into te skeleton animation
@@ -40,6 +61,10 @@ public class skeletonController : MonoBehaviour
 				attackCooldownTimer = 0;
 			}
 
+		}
+		if (isAttacking == false)
+		{
+			MoveInDirection();
 		}
 
 		// ** Animation **
@@ -70,6 +95,80 @@ public class skeletonController : MonoBehaviour
 		if (PlayerInSight())
 		{
 			GameManager.gameManager.PlayerDamager(damage);
+		}
+	}
+
+	#region Switch Functions **
+
+	private void SwitchToLeft()
+	{
+		// Flip the enemy to face left waypoints direction
+		transform.localScale = movingLeftScale;
+		// Switch waypoint to the left waypoint
+		movingRight = false;
+	}
+	private void SwitchToRight()
+	{
+		// Flip the enemy to face right waypoints direction
+		transform.localScale = movingRightScale;
+		// Switch waypoint to the right waypoint
+		movingRight = true;
+	}
+	#endregion
+
+	private void MoveInDirection()
+	{
+		// Get the next waypoint
+		if (movingRight)
+		{
+			// If player is at waypoint
+			if (transform.position.x >= rightEdge.position.x)
+			{
+				// Stop Skeleton Movement
+				transform.position = new Vector2(transform.position.x, transform.position.y);
+				// Skeleton is not walking
+				isWalking = false;
+				// Delay Skeleton Flip and Switch of bool
+				Invoke("SwitchToLeft", 2);
+
+			}
+			else if(!isAttacking)
+			{
+				// Skeleton is walking
+				isWalking = true;
+				// Move in direction of waypoint
+				transform.position = new Vector2(transform.position.x + speed, transform.position.y);
+			}
+			else
+			{
+				isWalking = false;
+				transform.position = new Vector2(transform.position.x, transform.position.y);
+			}
+		}
+		if (!movingRight)
+		{
+			// If player is at waypoint
+			if (transform.position.x <= leftEdge.position.x)
+			{
+				// Stop Skeleton Movement
+				transform.position = new Vector2(transform.position.x, transform.position.y);
+				// Skeleton is not walking
+				isWalking = false;
+				// Delay Skeleton Flip and Switch of bool
+				Invoke("SwitchToRight", 2);
+			}
+			else if(!isAttacking)
+			{
+				// Skeleton is walking
+				isWalking = true;
+				// Move in direction of waypoint
+				transform.position = new Vector2(transform.position.x - speed, transform.position.y);
+			}
+			else
+			{
+				isWalking = false;
+				transform.position = new Vector2(transform.position.x, transform.position.y);
+			}
 		}
 	}
 }

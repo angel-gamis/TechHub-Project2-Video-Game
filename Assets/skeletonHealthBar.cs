@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class healthBar : MonoBehaviour
+public class skeletonHealthBar : MonoBehaviour
 {
-	Slider healthBarSlider;
+	private Slider healthBarSlider;
+	[SerializeField] private skeletonController skeletonController;
 
 	// Grabbing the health bar slider
 	private void Start()
@@ -16,14 +15,15 @@ public class healthBar : MonoBehaviour
 	// Grabs the max health of entity and gives it to the bar -- sets it as max value and current value
 	public void SetMaxHealth(int maxHealth)
 	{
-		healthBarSlider.maxValue = (GameManager.gameManager.playerHealth.MaxHealth - maxHealth);
-		healthBarSlider.value = (GameManager.gameManager.playerHealth.MaxHealth - maxHealth);
+		healthBarSlider.maxValue = (skeletonController.skeletonHealth.MaxHealth - maxHealth);
+		healthBarSlider.value = (skeletonController.skeletonHealth.MaxHealth - maxHealth);
 	}
 
 
 	// Sets health variable to the current value on the bar
 	public void SetHealth(int health)
 	{
-		healthBarSlider.value = GameManager.gameManager.playerHealth.MaxHealth - health;
+		healthBarSlider.value = skeletonController.skeletonHealth.MaxHealth - health;
 	}
 }
+

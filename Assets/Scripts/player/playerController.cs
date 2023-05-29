@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SocialPlatforms;
 
 public class playerController : MonoBehaviour
 {
 	private Animator anim;
-	[SerializeField] healthBar healthBar;
+	[SerializeField] playerHealthBar healthBar;
 	[SerializeField] GameObject deathMenu;
 
 	// Player Inputs
@@ -16,12 +17,23 @@ public class playerController : MonoBehaviour
 	private float yMove;
 
 	// Player Variables
+	[Header("** Player Variables")]
 	public bool playerStatus = true;
 	private float speed = 20f;
 	private float climbingSpeed = 8f;
 	private float jumpingPower = 35f;
 	private int deathCounter = 0;
 	private bool onSpike;
+
+	[Header("** Attack Variables")]
+	private bool isAttacking = false;
+	[SerializeField] private float attackCooldown;
+	[SerializeField] private float range;
+	[SerializeField] private float colliderDistance;
+	[SerializeField] private int damage;
+	[SerializeField] private BoxCollider2D boxCollider;
+	[SerializeField] private LayerMask enemyLayer;
+	private float attackCooldownTimer = Mathf.Infinity;
 
 	// Variables
 	float spikeTimer = 1.5f;
@@ -43,7 +55,7 @@ public class playerController : MonoBehaviour
 		rigid = gameObject.GetComponent<Rigidbody2D>();
 	}
 
-	// Input direction, jumping, and animations
+	// Input direction, jumping, animations, attack, and health check/death
 	void Update()
 	{
 		if(GameManager.gameManager.playerHealth.Health <= 0)
@@ -74,6 +86,7 @@ public class playerController : MonoBehaviour
 
 			}
 
+			#region **Jumping
 			// Checks if player is grounded
 			// *** Jump ***
 			if (Input.GetButtonDown("Jump") && IsGrounded() || Input.GetButtonDown("Jump") && isVines)
@@ -88,11 +101,37 @@ public class playerController : MonoBehaviour
 				rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
 				isJumping = false;
 			}
+			#endregion
+
+			#region **Attacking
+
+			// Update Timer
+			attackCooldownTimer += Time.deltaTime;
+
+			// Attack only if the player is in skeletons range of sight
+			if (IsEnemyInRange())
+			{
+				// Attack if cooldown is finished
+				if (attackCooldownTimer > attackCooldown)
+				{
+					transform.position = new Vector2(transform.position.x, transform.position.y);
+					isAttacking = true;
+					// Attack Animation
+					anim.SetTrigger("attack");
+					// Delay Damage to hit a little bit into te skeleton animation
+					Invoke("DamagePlayer", .5f);
+					// Reset attack cooldown
+					attackCooldownTimer = 0;
+				}
+
+			}
+			#endregion
 
 			// *** Animations ***
 			anim.SetBool("isFacingLeft", isFacingLeft);
 			anim.SetBool("isWalking", isWalking);
 			anim.SetBool("isJumping", isJumping);
+
 		}
 
 		// ** Test Damage + Heal **
@@ -215,5 +254,20 @@ public class playerController : MonoBehaviour
 	private void PlayerHeal(int heal)
 	{
 		GameManager.gameManager.PlayerHeal(heal);
+	}
+
+	// Attack
+
+	private bool IsEnemyInRange()
+	{
+		// Check if enemy is in the players range (position, size, angle, direction, distance, layerMask)
+		RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y), 0, Vector2.left, 0, enemyLayer);
+		return false;
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y));
 	}
 }

@@ -15,6 +15,8 @@ public class skeletonController : MonoBehaviour
 
 	[Header("** Skeleton Status Variables")]
 	// Skeleton Status Variables
+
+	public entityHealth skeletonHealth = new entityHealth(75, 75);
 	private bool isWalking;
 	public bool isAttacking;
 
@@ -29,8 +31,7 @@ public class skeletonController : MonoBehaviour
 	[SerializeField] private Transform rightEdge;
 
 	[Header("** Outside Variables")]
-	[SerializeField] enemyPatrol enemyPatrol;
-	[SerializeField] healthBar playerHealthBar;
+	[SerializeField] playerHealthBar playerHealthBar;
 	[SerializeField] private LayerMask playerLayer;
 
 	private void Awake()

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 	#region **Player Damage Variables**
 	[SerializeField] private GameObject player;
 	private SpriteRenderer playerRend;
-	[SerializeField] private healthBar playerHealthBar;
+	[SerializeField] private playerHealthBar playerHealthBar;
 	private Material playersOriginalMaterial;
 	
 	// Flash

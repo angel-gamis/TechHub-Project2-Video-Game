@@ -3,7 +3,11 @@ guid: 9817e2792d47a7a4d9f87c250a6b3152
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - deathMenu: {fileID: 4253171166891299792, guid: b06f65acaee27914c982924f41349a68, type: 3}
+  - boxCollider: {instanceID: 0}
+  - groundCheck: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

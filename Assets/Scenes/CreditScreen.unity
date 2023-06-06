@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.0.1
+  m_text: Version 0.1.0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6028821f372bde54b8c5e8dd4499303d, type: 2}
   m_sharedMaterial: {fileID: 7403987482860511666, guid: 6028821f372bde54b8c5e8dd4499303d, type: 2}
@@ -440,6 +440,7 @@ Transform:
   m_Children:
   - {fileID: 1008541231}
   - {fileID: 168332406}
+  - {fileID: 1347712689}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1970,6 +1971,7 @@ GameObject:
   - component: {fileID: 1008541234}
   - component: {fileID: 1008541233}
   - component: {fileID: 1008541232}
+  - component: {fileID: 1008541235}
   m_Layer: 0
   m_Name: Credit Screen
   m_TagString: Untagged
@@ -2064,6 +2066,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1008541235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008541230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9277c317409be5b40a44971a25014960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restartBtn: {fileID: 1566741812}
+  quitBtn: {fileID: 598457562}
 --- !u!1 &1095357767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,12 +2450,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347712688}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -149.00461, y: 88.99717, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 250570096}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1347712690

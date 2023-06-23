@@ -16,7 +16,7 @@ public class skeletonController : MonoBehaviour
 	[Header("** Skeleton Status Variables")]
 	// Skeleton Status Variables
 
-	public entityHealth skeletonHealth = new entityHealth(75, 75);
+	public entityHealth enemyHealth = new entityHealth(75, 75);
 	private bool isWalking;
 	public bool isAttacking;
 
@@ -33,6 +33,7 @@ public class skeletonController : MonoBehaviour
 	[Header("** Outside Variables")]
 	[SerializeField] playerHealthBar playerHealthBar;
 	[SerializeField] private LayerMask playerLayer;
+	[SerializeField] 
 
 	private void Awake()
 	{
@@ -98,6 +99,14 @@ public class skeletonController : MonoBehaviour
 			GameManager.gameManager.PlayerDamager(damage);
 		}
 	}
+
+	// Damage the skeleton
+	public void DamageSkeleton(int dmg)
+	{
+		enemyHealth.DamageEntity(dmg);
+	}
+
+	// Heal the skeleton
 
 	#region Switch Functions **
 

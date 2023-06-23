@@ -33,6 +33,7 @@ public class playerController : MonoBehaviour
 	[SerializeField] private int damage;
 	[SerializeField] private BoxCollider2D boxCollider;
 	[SerializeField] private LayerMask enemyLayer;
+	private GameObject enemy;
 	private float attackCooldownTimer = Mathf.Infinity;
 
 	// Variables
@@ -112,8 +113,8 @@ public class playerController : MonoBehaviour
 			if (IsEnemyInRange())
 			{
 				// Attack if cooldown is finished
-				if (attackCooldownTimer > attackCooldown)
-				{
+				//if (attackCooldownTimer > attackCooldown)
+				//{
 					transform.position = new Vector2(transform.position.x, transform.position.y);
 					isAttacking = true;
 					// Attack Animation
@@ -122,7 +123,8 @@ public class playerController : MonoBehaviour
 					Invoke("DamagePlayer", .5f);
 					// Reset attack cooldown
 					attackCooldownTimer = 0;
-				}
+					Debug.Log("Attacking Enemy");
+				//}
 
 			}
 			#endregion
@@ -256,13 +258,17 @@ public class playerController : MonoBehaviour
 		GameManager.gameManager.PlayerHeal(heal);
 	}
 
-	// Attack
+	#region Attack***
 
 	private bool IsEnemyInRange()
 	{
 		// Check if enemy is in the players range (position, size, angle, direction, distance, layerMask)
 		RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y), 0, Vector2.left, 0, enemyLayer);
-		return false;
+
+		enemy = hit.collider.gameObject;
+
+		// Set to bool to true
+		return hit.collider != null;
 	}
 
 	private void OnDrawGizmos()
@@ -270,4 +276,10 @@ public class playerController : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y));
 	}
+
+	private void AttackEntity()
+	{
+		//
+	}
+	#endregion
 }

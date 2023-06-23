@@ -36,7 +36,7 @@ public class shooting : MonoBehaviour
 			transform.position = playerPos;
 
 			// Aiming and rotating magic
-			if (Input.GetMouseButton(0))
+			if (Input.GetMouseButton(1))
 			{
 				bulletTrans.SetActive(true);
 				isAiming = true;
@@ -51,7 +51,7 @@ public class shooting : MonoBehaviour
 			}
 
 			// Shooting Magic
-			if (Input.GetMouseButtonUp(0))
+			if (Input.GetMouseButtonUp(1))
 			{
 				bulletTrans.SetActive(false);
 				isAiming = false;
